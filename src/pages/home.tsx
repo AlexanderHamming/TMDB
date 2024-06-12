@@ -3,9 +3,7 @@ import Navigation from "../components/navbar";
 const Home = () => {
   return (
     <>
- <Navigation />
-      <div>Welcome</div>
-      <p>heh</p>
+      <Navigation />
     </>
   );
 };

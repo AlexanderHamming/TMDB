@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GenreResponse, Genre } from "../types/genres";
+import { Movie, MovieResponse } from "../types/movies";
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -25,5 +26,11 @@ const get = async <T>(endpoint: string): Promise<T> => {
 export const getGenres = async (): Promise<Genre[]> => {
   return get<GenreResponse>("/genre/movie/list").then(
     (response) => response.genres
+  );
+};
+
+export const getNowPlaying = async (): Promise<Movie[]> => {
+  return get<MovieResponse>("/movie/now_playing").then(
+    (response) => response.results
   );
 };
