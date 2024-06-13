@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import NotFoundPage from "./components/notFoundPage";
 import NowPlaying from "./pages/nowPlaying";
+import TopRated from "./pages/topRated";
+import TrendingMovies from "./pages/trending";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/movies/now-playing" element={<NowPlaying />} />
+          <Route path="/movies/top-rated" element={<TopRated />} />
+          <Route path="/movies/trending" element={<TrendingMovies />} />
         </Routes>
       </Container>
     </div>

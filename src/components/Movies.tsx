@@ -14,16 +14,14 @@ const Movies: React.FC<MoviesProps> = ({ movies }) => {
         {movies.map((movie) => (
           <Col key={movie.id} sm={12} md={6} lg={4} xl={3} className="mb-4">
             <Link to={`/movies/${movie.id}`}>
-              <Card>
+              <Card className="Card-height">
                 <Card.Img
                   variant="top"
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
-                  height={400}
                 />
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p>{movie.release_date}</p>
                 </Card.Body>
               </Card>
             </Link>

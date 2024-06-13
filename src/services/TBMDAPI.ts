@@ -34,3 +34,16 @@ export const getNowPlaying = async (): Promise<Movie[]> => {
     (response) => response.results
   );
 };
+
+export const getTopRated = async (): Promise<Movie[]> => {
+  return get<MovieResponse>("/movie/top_rated").then(
+    (response) => response.results
+  );
+};
+
+export const getTrending = async (): Promise<Movie[]> => {
+    return get<MovieResponse>("/trending/movie/week").then(
+      (response) => response.results
+    );
+  };
+  
