@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Movies from "../components/Movies";
 import { getNowPlaying } from "../services/TBMDAPI";
-import { Movie } from "../types/movies";
+import { Movie } from "../types/moviesTypes";
 import Navigation from "../components/navbar";
 import { Alert, Spinner } from "react-bootstrap";
 const NowPlaying: React.FC = () => {

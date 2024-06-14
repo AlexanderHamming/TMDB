@@ -1,6 +1,6 @@
 import axios from "axios";
-import { GenreResponse, Genre } from "../types/genres";
-import { Movie, MovieResponse } from "../types/movies";
+import { GenreResponse, Genre } from "../types/genresTypes";
+import { Movie, MovieResponse, movieDetails} from "../types/moviesTypes";
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -14,6 +14,7 @@ const instance = axios.create({
   },
   params: {
     api_key: API_KEY,
+    include_adult: false, 
   },
 });
 
@@ -25,6 +26,7 @@ const get = async <T>(
     params: {
       ...params,
       api_key: API_KEY,
+      include_adult: false, 
     },
   });
   return res.data;
@@ -67,3 +69,11 @@ export const getTopRated = async (): Promise<Movie[]> => {
 export const getTrending = async (): Promise<Movie[]> => {
   return getMovies("/trending/movie/week");
 };
+
+export const getMovieByGenre = async (genreId: number): Promise<Movie[]> => {
+  return getMovies("/discover/movie", { with_genres: genreId });
+};
+
+export const getMovieDetails = async (movieId: number): Promise<movieDetails>{
+  return 
+}

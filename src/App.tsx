@@ -7,6 +7,7 @@ import NotFoundPage from "./components/notFoundPage";
 import NowPlaying from "./pages/nowPlaying";
 import TopRated from "./pages/topRated";
 import TrendingMovies from "./pages/trending";
+import GenreMovies from "./pages/genreMovies";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/movies/now-playing" element={<NowPlaying />} />
           <Route path="/movies/top-rated" element={<TopRated />} />
           <Route path="/movies/trending" element={<TrendingMovies />} />
+          <Route path="/genres/:genreId" element={<GenreMovies />} />
         </Routes>
       </Container>
     </div>

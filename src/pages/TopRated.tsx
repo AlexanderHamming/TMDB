@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Movies from "../components/Movies";
 import { getTopRated } from "../services/TBMDAPI";
-import { Movie } from "../types/movies";
+import { Movie } from "../types/moviesTypes";
 import Navigation from "../components/navbar";
 import { Alert, Spinner } from "react-bootstrap";
 const TopRated: React.FC = () => {
@@ -23,7 +23,7 @@ const TopRated: React.FC = () => {
         </Spinner>
       </div>
     );
-  if (isError) return <Alert variant="danger">{error.message}</Alert>
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
 
   return (
     <div>

@@ -5,7 +5,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { Alert } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { getGenres } from "../services/TBMDAPI";
-import { Genre } from "../types/genres";
+import { Genre } from "../types/genresTypes";
 import { Link, NavLink } from "react-router-dom";
 
 const Navigation = () => {

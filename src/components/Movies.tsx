@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Movie } from "../types/movies";
+import { Movie } from "../types/moviesTypes";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
 interface MoviesProps {
