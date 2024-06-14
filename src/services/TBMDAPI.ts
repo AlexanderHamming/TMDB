@@ -12,11 +12,18 @@ const instance = axios.create({
     Accept: "application/json",
     "Content-Type": "application/json",
   },
+  params: {
+    api_key: API_KEY,
+  },
 });
 
-const get = async <T>(endpoint: string): Promise<T> => {
+const get = async <T>(
+  endpoint: string,
+  params?: Record<string, unknown>
+): Promise<T> => {
   const res = await instance.get<T>(endpoint, {
     params: {
+      ...params,
       api_key: API_KEY,
     },
   });
@@ -29,21 +36,34 @@ export const getGenres = async (): Promise<Genre[]> => {
   );
 };
 
-export const getNowPlaying = async (): Promise<Movie[]> => {
-  return get<MovieResponse>("/movie/now_playing").then(
+const getMovies = async (
+  endpoint: string,
+  params?: Record<string, unknown>
+): Promise<Movie[]> => {
+  const genres = await getGenres();
+  const genreMap = genres.reduce((map, genre) => {
+    map[genre.id] = genre;
+    return map;
+  }, {} as Record<number, Genre>);
+
+  const movies = await get<MovieResponse>(endpoint, params).then(
     (response) => response.results
   );
+
+  return movies.map((movie) => ({
+    ...movie,
+    genres: movie.genre_ids.map((id: number) => genreMap[id]),
+  }));
+};
+
+export const getNowPlaying = async (): Promise<Movie[]> => {
+  return getMovies("movie/now_playing");
 };
 
 export const getTopRated = async (): Promise<Movie[]> => {
-  return get<MovieResponse>("/movie/top_rated").then(
-    (response) => response.results
-  );
+  return getMovies("/movie/top_rated");
 };
 
 export const getTrending = async (): Promise<Movie[]> => {
-    return get<MovieResponse>("/trending/movie/week").then(
-      (response) => response.results
-    );
-  };
-  
+  return getMovies("/trending/movie/week");
+};
