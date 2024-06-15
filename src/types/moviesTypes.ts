@@ -18,16 +18,11 @@ export interface MovieResponse {
 
 //MOVIEDETAILS
 
-export interface Crew {
-  id: number;
-  name: string;
-  job: string;
-}
-
 export interface Cast {
   id: number;
   name: string;
   character: string;
+  profile_path: string;
 }
 
 export interface movieDetails {
@@ -40,8 +35,11 @@ export interface movieDetails {
   release_date: string;
   vote_avarage: number;
   credits: {
-    crew: Crew[];
     cast: Cast[];
   }
-  
+  runtime: number;
+  revenue: number;
+  budget: number;
+  tagline: string;
+  vote_average: number;
 }

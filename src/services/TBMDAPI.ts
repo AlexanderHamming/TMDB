@@ -74,6 +74,6 @@ export const getMovieByGenre = async (genreId: number): Promise<Movie[]> => {
   return getMovies("/discover/movie", { with_genres: genreId });
 };
 
-export const getMovieDetails = async (movieId: number): Promise<movieDetails>{
-  return 
-}
+export const getMovieDetails = async (movieId: number): Promise<movieDetails> => {
+  return get<movieDetails>(`/movie/${movieId}`, {append_to_response: "credits"});
+};
