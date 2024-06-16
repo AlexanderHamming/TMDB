@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GenreResponse, Genre } from "../types/genresTypes";
 import { Movie, MovieResponse, movieDetails} from "../types/moviesTypes";
+import { ActorMoviesResponse, actorDetails, actorMovies} from "../types/actorTypes";
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -76,4 +77,14 @@ export const getMovieByGenre = async (genreId: number): Promise<Movie[]> => {
 
 export const getMovieDetails = async (movieId: number): Promise<movieDetails> => {
   return get<movieDetails>(`/movie/${movieId}`, {append_to_response: "credits"});
+};
+
+export const getActorDetails = async (actorId:number): Promise<actorDetails> => {
+  return get<actorDetails>(`/person/${actorId}`);
+}
+
+export const getActorMovies = async (actorId: number): Promise<actorMovies[]> => {
+  return get<ActorMoviesResponse>(`/person/${actorId}/movie_credits`).then(
+    (response) => response.cast
+  );
 };

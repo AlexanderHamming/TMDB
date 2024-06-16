@@ -9,6 +9,7 @@ import TopRated from "./pages/topRated";
 import TrendingMovies from "./pages/trending";
 import GenreMovies from "./pages/genreMovies";
 import MovieDetails from "./pages/movieDetails";
+import ActorDetails from "./pages/actorDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/movies/trending" element={<TrendingMovies />} />
           <Route path="/genres/:genreId" element={<GenreMovies />} />
           <Route path="/movies/:movieId" element={<MovieDetails />} />
+          <Route path="/actors/:actorId" element={<ActorDetails />} />
         </Routes>
       </Container>
     </div>

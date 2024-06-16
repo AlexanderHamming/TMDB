@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import fallbackIMG from "../assets/imgs/fallbackPeople.jpg";
 import { getMovieDetails } from "../services/TBMDAPI";
 import Navigation from "../components/navbar";
 import { movieDetails } from "../types/moviesTypes";
@@ -85,12 +86,14 @@ const MovieDetails: React.FC = () => {
             <h2 className="mt-4">Cast</h2>
             <Row>
               {movie.credits.cast.map((actor) => (
-                <Col key={actor.id} xs={6} md={3} lg={2} className="mb-4">
+                <Col key={actor.id} xs={6} md={3} lg={3} className="mb-4">
                   <Link to={`/actors/${actor.id}`}>
                     <Card>
                       <Card.Img
                         variant="top"
-                        src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                        src= {actor.profile_path 
+                            ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                        : fallbackIMG}  
                         alt={actor.name}
                       />
                       <Card.Body>
