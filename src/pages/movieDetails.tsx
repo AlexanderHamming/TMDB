@@ -59,31 +59,79 @@ const MovieDetails: React.FC = () => {
           </Col>
           <Col md={8}>
             <h1>{movie.title}</h1>
-            <p>{movie.overview}</p>
-            <p>
-              <strong>Release Date:</strong> {movie.release_date}
-            </p>
-            <p>
-              <strong>Rating:</strong> {movie.vote_average}
-            </p>
-            <p>
-              <strong>Runtime:</strong> {movie.runtime} minutes
-            </p>
-            <p>
-              <strong>Tagline:</strong> {movie.tagline}
-            </p>
-            <p>
-              <strong>Budget:</strong> ${movie.budget.toLocaleString()}
-            </p>
-            <p>
-              <strong>Revenue:</strong> ${movie.revenue.toLocaleString()}
-            </p>
-            <p>
-              <strong>Genres:</strong>{" "}
-              {movie.genres &&
-                movie.genres.map((genre) => genre.name).join(", ")}
-            </p>
+
+            {movie.overview ? <p>{movie.overview}</p> : ""}
+
+            {movie.release_date ? (
+              <p>
+                <strong>Release Date:</strong> {movie.release_date}
+              </p>
+            ) : (
+              <p>
+                <strong>Release Date:</strong> N/D.
+              </p>
+            )}
+            {movie.vote_avarage ? (
+              <p>
+                <strong>Rating:</strong> {movie.vote_average}
+              </p>
+            ) : (
+              <p>
+                <strong>Rating:</strong> N/D.
+              </p>
+            )}
+            {movie.runtime ? (
+              <p>
+                <strong>Runtime:</strong> {movie.runtime} minutes
+              </p>
+            ) : (
+              <p>
+                <strong>Runtime:</strong> N/D.
+              </p>
+            )}
+            {movie.tagline ? (
+              <p>
+                <strong>Tagline:</strong> {movie.tagline}
+              </p>
+            ) : (
+              <p>
+                <strong>Tagline:</strong> N/D.
+              </p>
+            )}
+            {movie.budget ? (
+              <p>
+                <strong>Budget:</strong> ${movie.budget.toLocaleString()}
+              </p>
+            ) : (
+              <p>
+                <strong>Budget:</strong> N/D.
+              </p>
+            )}
+            {movie.revenue ? (
+              <p>
+                <strong>Revenue:</strong> ${movie.revenue.toLocaleString()}
+              </p>
+            ) : (
+              <p>
+                <strong>Revenue:</strong> N/D
+              </p>
+            )}
+            {movie.genres && movie.genres.length > 0 ? (
+              <p>
+                <strong>Genres:</strong>{" "}
+                {movie.genres.map((genre) => (
+                  <Link key={genre.id} to={`/genres/${genre.id}`}>
+                    {genre.name}
+                  </Link>
+                ))}
+              </p>
+            ) : (
+              <p>
+                <strong>Genres:</strong> N/D.
+              </p>
+            )}
             <h2 className="mt-4">Cast</h2>
+
             <Row>
               {movie.credits.cast.map((actor) => (
                 <Col key={actor.id} xs={6} md={3} lg={3} className="mb-4">
@@ -91,12 +139,14 @@ const MovieDetails: React.FC = () => {
                     <Card>
                       <Card.Img
                         variant="top"
-                        src= {actor.profile_path 
+                        src={
+                          actor.profile_path
                             ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                        : fallbackIMG}  
+                            : fallbackIMG
+                        }
                         alt={actor.name}
                       />
-                      <Card.Body>
+                      <Card.Body className="actorNC">
                         <Card.Title>{actor.name}</Card.Title>
                         <Card.Text>{actor.character}</Card.Text>
                       </Card.Body>

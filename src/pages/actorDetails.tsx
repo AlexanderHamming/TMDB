@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import fallbackIMG from "../assets/imgs/fallbackPoster.jpg";
+import fallbackIMGPoster from "../assets/imgs/fallbackPoster.jpg";
+import fallbackIMGPeople from "../assets/imgs/fallbackPeople.jpg";
 import { getActorDetails } from "../services/TBMDAPI";
 import Navigation from "../components/navbar";
 import { actorMovies } from "../types/actorTypes";
@@ -63,42 +64,64 @@ const ActorDetails: React.FC = () => {
         <Row>
           <Col md={4}>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+              src={
+                actor.profile_path
+                  ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                  : fallbackIMGPeople
+              }
               alt={actor.name}
               fluid
             />
           </Col>
           <Col md={8}>
             <h1>{actor.name}</h1>
-            <p>{actor.biography}</p>
-            <p>
-              <strong>Birthday:</strong> {actor.birthday}
-            </p>
-            <p>
-              <strong>Rating:</strong> {actor.place_of_birth}
-            </p>
+
+            {actor.biography ? <p>{actor.biography}</p> : ""}
+            
+            {actor.birthday ? (
+              <p>
+                <strong>Birthday:</strong> {actor.birthday}
+              </p>
+            ) : (
+              <p>
+                <strong>Birthday:</strong> N/D.
+              </p>
+            )}
+             {actor.place_of_birth ? (
+              <p>
+                <strong>Birth Place:</strong> {actor.place_of_birth}
+              </p>
+            ) : (
+              <p>
+                <strong>Birth Place:</strong> N/D.
+              </p>
+            )}
+             
+             
             <h2 className="mt-4">Movies</h2>
             <Row>
               {actorMovies &&
                 actorMovies.map((movie) => (
-                  <Col key={movie.id} xs={6} md={3} lg={2} className="mb-4">
-                    <Link to={`/movies/${movie.id}`}>
-                      <Card>
+                  <Col key={movie.id} xs={6} md={3} lg={3} className="mb-4">
+                    <Card>
+                      <Link to={`/movies/${movie.id}`}>
                         <Card.Img
                           variant="top"
                           src={
                             movie.poster_path
                               ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                              : fallbackIMG
+                              : fallbackIMGPoster
                           }
                           alt={movie.title}
                         />
-                        <Card.Body>
+                      </Link>
+                      <Card.Body>
+                        <Link to={`/movies/${movie.id}`}>
                           <Card.Title>{movie.title}</Card.Title>
-                          <Card.Text>{movie.character}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Link>
+                        </Link>
+                        <Card.Text>{movie.character}</Card.Text>
+                      </Card.Body>
+                    </Card>
                   </Col>
                 ))}
             </Row>

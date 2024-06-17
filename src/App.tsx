@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
-import NotFoundPage from "./components/notFoundPage";
+import NotFoundPage from "./pages/notFoundPage";
 import NowPlaying from "./pages/nowPlaying";
 import TopRated from "./pages/topRated";
 import TrendingMovies from "./pages/trending";

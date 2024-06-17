@@ -21,7 +21,7 @@ const Movies: React.FC<MoviesProps> = ({ movies }) => {
                   alt={movie.title}
                 />
                 <Card.Body>
-                  <Card.Title>{movie.title}</Card.Title>
+                  <Card.Title className="cardTitle">{movie.title}</Card.Title>
                 </Card.Body>
               </Card>
             </Link>
