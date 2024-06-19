@@ -42,37 +42,37 @@ export const getGenres = async (): Promise<Genre[]> => {
 const getMovies = async (
   endpoint: string,
   params?: Record<string, unknown>
-): Promise<Movie[]> => {
+): Promise<MovieResponse> => {
   const genres = await getGenres();
   const genreMap = genres.reduce((map, genre) => {
     map[genre.id] = genre;
     return map;
   }, {} as Record<number, Genre>);
 
-  const movies = await get<MovieResponse>(endpoint, params).then(
-    (response) => response.results
-  );
+  const movieResponse = await get<MovieResponse>(endpoint, params);
 
-  return movies.map((movie) => ({
+  movieResponse.results = movieResponse.results.map((movie) => ({
     ...movie,
     genres: movie.genre_ids.map((id: number) => genreMap[id]),
   }));
+
+  return movieResponse;
 };
 
 export const getNowPlaying = async (): Promise<Movie[]> => {
-  return getMovies("movie/now_playing");
+  return getMovies("movie/now_playing").then((response) => response.results);
 };
 
 export const getTopRated = async (): Promise<Movie[]> => {
-  return getMovies("/movie/top_rated");
+  return getMovies("/movie/top_rated").then((response) => response.results);
 };
 
 export const getTrending = async (): Promise<Movie[]> => {
-  return getMovies("/trending/movie/week");
+  return getMovies("/trending/movie/week").then((response) => response.results);
 };
 
-export const getMovieByGenre = async (genreId: number): Promise<Movie[]> => {
-  return getMovies("/discover/movie", { with_genres: genreId });
+export const getMovieByGenre = async (genreId: number, page: number = 1): Promise<MovieResponse> => {
+  return getMovies("/discover/movie", { with_genres: genreId, page });
 };
 
 export const getMovieDetails = async (movieId: number): Promise<movieDetails> => {

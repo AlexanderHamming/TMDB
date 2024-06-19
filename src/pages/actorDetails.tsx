@@ -71,13 +71,14 @@ const ActorDetails: React.FC = () => {
               }
               alt={actor.name}
               fluid
+              className="actor-poster"
             />
           </Col>
           <Col md={8}>
             <h1>{actor.name}</h1>
 
             {actor.biography ? <p>{actor.biography}</p> : ""}
-            
+
             {actor.birthday ? (
               <p>
                 <strong>Birthday:</strong> {actor.birthday}
@@ -87,7 +88,7 @@ const ActorDetails: React.FC = () => {
                 <strong>Birthday:</strong> N/D.
               </p>
             )}
-             {actor.place_of_birth ? (
+            {actor.place_of_birth ? (
               <p>
                 <strong>Birth Place:</strong> {actor.place_of_birth}
               </p>
@@ -96,14 +97,13 @@ const ActorDetails: React.FC = () => {
                 <strong>Birth Place:</strong> N/D.
               </p>
             )}
-             
-             
+
             <h2 className="mt-4">Movies</h2>
-            <Row>
+
+            <div className="scroll-container">
               {actorMovies &&
                 actorMovies.map((movie) => (
-                  <Col key={movie.id} xs={6} md={3} lg={3} className="mb-4">
-                    <Card>
+                    <Card key={movie.id} className="film-card">
                       <Link to={`/movies/${movie.id}`}>
                         <Card.Img
                           variant="top"
@@ -113,19 +113,21 @@ const ActorDetails: React.FC = () => {
                               : fallbackIMGPoster
                           }
                           alt={movie.title}
+                         
                         />
                       </Link>
-                      <Card.Body>
+                      <Card.Body className="movieNC">
                         <Link to={`/movies/${movie.id}`}>
                           <Card.Title>{movie.title}</Card.Title>
                         </Link>
                         <Card.Text>{movie.character}</Card.Text>
                       </Card.Body>
                     </Card>
-                  </Col>
+                 
                 ))}
-            </Row>
-          </Col>
+                 </div>
+            
+         </Col>
         </Row>
       </Container>
     </div>

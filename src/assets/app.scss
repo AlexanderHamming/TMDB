@@ -9,3 +9,48 @@
 .actorNC {
   text-align: center;
 }
+
+.movieNC {
+    text-align: center;
+  }
+  
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+
+.scroll-container::-webkit-scrollbar {
+  display: none; 
+}
+
+.actor-card {
+  flex: 0 0 auto;
+  width: 150px;
+}
+
+.actor-card  img {
+height: 220px;
+}
+
+.film-card {
+  flex: 0 0 auto;
+  width: 150px;
+}
+
+.film-card {
+ height: 220px;
+}
+
+.actor-poster {
+  width: 22rem;
+  height: 22rem;
+}
+
+.page {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

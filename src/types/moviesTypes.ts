@@ -14,6 +14,7 @@ export interface MovieResponse {
   results: Movie[];
   total_pages: number;
   total_results: number;
+  page: number;
 }
 
 //MOVIEDETAILS

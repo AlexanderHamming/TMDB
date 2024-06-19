@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
+import Spinner from "react-bootstrap/Spinner";
 import { Alert } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { getGenres } from "../services/TBMDAPI";
@@ -13,22 +14,21 @@ const Navigation = () => {
     data: genres = [],
     isLoading,
     error,
+    isError,
   } = useQuery<Genre[]>({
     queryKey: ["genres"],
     queryFn: getGenres,
   });
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return (
-      <Alert key="danger" variant="danger">
-        Error loading genres!
-      </Alert>
-    );
-  }
+  if (isLoading)
+  return (
+    <div className="text-center my-4">
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    </div>
+  );
+if (isError) return <Alert variant="danger">{error.message}</Alert>
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">

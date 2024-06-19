@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import fallbackIMG from "../assets/imgs/fallbackPeople.jpg";
+import fallbackIMGPoster from "../assets/imgs/fallbackPoster.jpg";
 import { getMovieDetails } from "../services/TBMDAPI";
 import Navigation from "../components/navbar";
 import { movieDetails } from "../types/moviesTypes";
@@ -52,7 +53,11 @@ const MovieDetails: React.FC = () => {
         <Row>
           <Col md={4}>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : fallbackIMGPoster
+              }
               alt={movie.title}
               fluid
             />
@@ -132,29 +137,29 @@ const MovieDetails: React.FC = () => {
             )}
             <h2 className="mt-4">Cast</h2>
 
-            <Row>
+            <div className="scroll-container">
               {movie.credits.cast.map((actor) => (
-                <Col key={actor.id} xs={6} md={3} lg={3} className="mb-4">
+                <Card key={actor.id} className="actor-card">
                   <Link to={`/actors/${actor.id}`}>
-                    <Card>
-                      <Card.Img
-                        variant="top"
-                        src={
-                          actor.profile_path
-                            ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                            : fallbackIMG
-                        }
-                        alt={actor.name}
-                      />
-                      <Card.Body className="actorNC">
-                        <Card.Title>{actor.name}</Card.Title>
-                        <Card.Text>{actor.character}</Card.Text>
-                      </Card.Body>
-                    </Card>
+                    <Card.Img
+                      variant="top"
+                      src={
+                        actor.profile_path
+                          ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                          : fallbackIMG
+                      }
+                      alt={actor.name}
+                    />
                   </Link>
-                </Col>
+                  <Card.Body className="actorNC">
+                    <Link to={`/actors/${actor.id}`}>
+                      <Card.Title>{actor.name}</Card.Title>
+                    </Link>
+                    <Card.Text>{actor.character}</Card.Text>
+                  </Card.Body>
+                </Card>
               ))}
-            </Row>
+            </div>
           </Col>
         </Row>
       </Container>
