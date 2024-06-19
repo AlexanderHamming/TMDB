@@ -8,8 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getGenres } from "../services/TBMDAPI";
 import { Genre } from "../types/genresTypes";
 import { Link, NavLink } from "react-router-dom";
+import { useTheme } from "../context/themeContext";
+import DarkIMG from "../assets/imgs/night-mode.jpg";
+import LightIMG from "../assets/imgs/brightness.jpg";
 
 const Navigation = () => {
+  const { isDarkMode, toggleTheme } = useTheme();
   const {
     data: genres = [],
     isLoading,
@@ -21,25 +25,36 @@ const Navigation = () => {
   });
 
   if (isLoading)
-  return (
-    <div className="text-center my-4">
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
-    </div>
-  );
-if (isError) return <Alert variant="danger">{error.message}</Alert>
+    return (
+      <div className="text-center my-4">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar
+      className={isDarkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"}
+      expand="lg"
+    >
       <Container>
         <Navbar.Brand as={Link} to="/">
           TMBD
         </Navbar.Brand>
-
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
+            <Nav.Item>
+              <Nav.Link onClick={toggleTheme}>
+                <img
+                  src={isDarkMode ? LightIMG : DarkIMG}
+                  alt={isDarkMode ? "Light Mode" : "Dark Mode"}
+                  className="theme-image"
+                />
+              </Nav.Link>
+            </Nav.Item>
             <Nav.Link as={NavLink} to="/movies/now-playing">
               Now Playing
             </Nav.Link>

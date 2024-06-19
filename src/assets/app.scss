@@ -11,9 +11,8 @@
 }
 
 .movieNC {
-    text-align: center;
-  }
-  
+  text-align: center;
+}
 
 .scroll-container {
   display: flex;
@@ -22,9 +21,8 @@
   padding: 1rem 0;
 }
 
-
 .scroll-container::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .actor-card {
@@ -32,8 +30,8 @@
   width: 150px;
 }
 
-.actor-card  img {
-height: 220px;
+.actor-card img {
+  height: 220px;
 }
 
 .film-card {
@@ -42,7 +40,7 @@ height: 220px;
 }
 
 .film-card {
- height: 220px;
+  height: 220px;
 }
 
 .actor-poster {
@@ -53,4 +51,8 @@ height: 220px;
 .page {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.theme-image {
+  height: 1.2rem;
 }
