@@ -23,7 +23,7 @@ const TrendingMovies: React.FC = () => {
         </Spinner>
       </div>
     );
-  if (isError) return <Alert variant="danger">{error.message}</Alert>
+  if (isError) return <Alert variant="danger">{error.message}</Alert>;
 
   return (
     <div>

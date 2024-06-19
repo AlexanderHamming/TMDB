@@ -1,7 +1,11 @@
 import axios from "axios";
 import { GenreResponse, Genre } from "../types/genresTypes";
-import { Movie, MovieResponse, movieDetails} from "../types/moviesTypes";
-import { ActorMoviesResponse, actorDetails, actorMovies} from "../types/actorTypes";
+import { Movie, MovieResponse, movieDetails } from "../types/moviesTypes";
+import {
+  ActorMoviesResponse,
+  actorDetails,
+  actorMovies,
+} from "../types/actorTypes";
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -15,7 +19,7 @@ const instance = axios.create({
   },
   params: {
     api_key: API_KEY,
-    include_adult: false, 
+    include_adult: false,
   },
 });
 
@@ -27,7 +31,7 @@ const get = async <T>(
     params: {
       ...params,
       api_key: API_KEY,
-      include_adult: false, 
+      include_adult: false,
     },
   });
   return res.data;
@@ -71,19 +75,30 @@ export const getTrending = async (): Promise<Movie[]> => {
   return getMovies("/trending/movie/week").then((response) => response.results);
 };
 
-export const getMovieByGenre = async (genreId: number, page: number = 1): Promise<MovieResponse> => {
+export const getMovieByGenre = async (
+  genreId: number,
+  page: number = 1
+): Promise<MovieResponse> => {
   return getMovies("/discover/movie", { with_genres: genreId, page });
 };
 
-export const getMovieDetails = async (movieId: number): Promise<movieDetails> => {
-  return get<movieDetails>(`/movie/${movieId}`, {append_to_response: "credits"});
+export const getMovieDetails = async (
+  movieId: number
+): Promise<movieDetails> => {
+  return get<movieDetails>(`/movie/${movieId}`, {
+    append_to_response: "credits",
+  });
 };
 
-export const getActorDetails = async (actorId:number): Promise<actorDetails> => {
+export const getActorDetails = async (
+  actorId: number
+): Promise<actorDetails> => {
   return get<actorDetails>(`/person/${actorId}`);
-}
+};
 
-export const getActorMovies = async (actorId: number): Promise<actorMovies[]> => {
+export const getActorMovies = async (
+  actorId: number
+): Promise<actorMovies[]> => {
   return get<ActorMoviesResponse>(`/person/${actorId}/movie_credits`).then(
     (response) => response.cast
   );

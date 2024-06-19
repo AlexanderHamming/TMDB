@@ -103,31 +103,28 @@ const ActorDetails: React.FC = () => {
             <div className="scroll-container">
               {actorMovies &&
                 actorMovies.map((movie) => (
-                    <Card key={movie.id} className="film-card">
+                  <Card key={movie.id} className="film-card">
+                    <Link to={`/movies/${movie.id}`}>
+                      <Card.Img
+                        variant="top"
+                        src={
+                          movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                            : fallbackIMGPoster
+                        }
+                        alt={movie.title}
+                      />
+                    </Link>
+                    <Card.Body className="movieNC">
                       <Link to={`/movies/${movie.id}`}>
-                        <Card.Img
-                          variant="top"
-                          src={
-                            movie.poster_path
-                              ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                              : fallbackIMGPoster
-                          }
-                          alt={movie.title}
-                         
-                        />
+                        <Card.Title>{movie.title}</Card.Title>
                       </Link>
-                      <Card.Body className="movieNC">
-                        <Link to={`/movies/${movie.id}`}>
-                          <Card.Title>{movie.title}</Card.Title>
-                        </Link>
-                        <Card.Text>{movie.character}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                 
+                      <Card.Text>{movie.character}</Card.Text>
+                    </Card.Body>
+                  </Card>
                 ))}
-                 </div>
-            
-         </Col>
+            </div>
+          </Col>
         </Row>
       </Container>
     </div>
